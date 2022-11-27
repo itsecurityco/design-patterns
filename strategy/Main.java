@@ -6,5 +6,9 @@ public class Main {
         king.fight();
         king.setWeapon(new KnifeBehavior());
         king.fight();
+
+        Character queen = new Queen();
+        queen.fight();
+        queen.fight();
     }
 }
