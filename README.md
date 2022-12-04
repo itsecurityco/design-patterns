@@ -4,6 +4,7 @@ Ejemplos de patrones de diseño para construir sistemas con buenas cualidades de
 ## Índice de contenidos
 - [Strategy](#strategy)
 - [Observer](#observer)
+- [Decorator](#decorator)
 
 ## Strategy
 El patrón estrategia permite:
@@ -13,6 +14,9 @@ El patrón estrategia permite:
 - Que el algoritmo varíe independientemente del cliente que lo use.
 
 ### Ejemplo
+
+Código completo [AdventureGame](strategy).
+
 ```java
 import strategy.KnifeBehavior;
 
@@ -47,6 +51,9 @@ El patrón observador permite:
 - Cuando un objeto actualiza su estado, todos los demás objetos que dependen de él son notificados y actualizados automáticamente.
 
 ### Ejemplo
+
+Código completo [WeatherStation](observer).
+
 ```java
 public class Main {
     public static void main(String[] args) {
@@ -89,3 +96,49 @@ Avg/Max/Min temperature = 27.0/31.0/19.0.
 
 #### Diagrama
 ![Observer Pattern](https://user-images.githubusercontent.com/1725054/204122987-bbf1e5f1-d162-471b-8b22-29d6fa0e1a80.png)
+
+
+## Decorator
+El patrón decorador permite:
+
+- Asignar responsabilidades adicionales a un objeto de forma dinámica.
+- Provee una alternativa flexible a subclases para extender funcionalidades.
+
+
+### Ejemplo
+
+Código completo [StarbuzzCoffee](decorator).
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Beverage beverage1 = new Espresso();
+        System.out.println(beverage1.getDescription() + " $" + beverage1.cost());
+
+        Beverage beverage2 = new DarkRoast();
+        beverage2 = new Mocha(beverage2);
+        beverage2 = new Mocha(beverage2);
+        beverage2 = new Whip(beverage2);
+        System.out.println(beverage2.getDescription() + " $" + beverage2.cost());
+
+        Beverage beverage3 = new HouseBlend();
+        beverage3 = new Soy(beverage3);
+        beverage3 = new Mocha(beverage3);
+        beverage3 = new Whip(beverage3);
+        System.out.println(beverage3.getDescription() + " $" + beverage3.cost());
+
+        Beverage beverage4 = new Whip(new Mocha(new Soy(new HouseBlend())));
+        System.out.println(beverage4.getDescription() + " $" + beverage4.cost());
+    }
+}
+```
+#### Salida
+```bash
+Espresso ☕ $1.99
+Most Excellent Dark Roast ☕, Mocha, Mocha, Whip $1.49
+House Blend Coffee ☕, Soy, Mocha, Whip $1.34
+House Blend Coffee ☕, Soy, Mocha, Whip $1.34
+```
+
+#### Diagrama
+![Decorator Pattern](https://user-images.githubusercontent.com/1725054/205513998-28bd03c3-4789-44d8-a873-8039d3b895f3.png)
